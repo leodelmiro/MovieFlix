@@ -21,6 +21,8 @@ public class MovieResource {
 
     @GetMapping
     public ResponseEntity<Page<MovieDTO>> findAll(
+            @RequestParam(value = "genreId", defaultValue = "0") Long
+                    genreId,
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "12") Integer size,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction,
@@ -28,7 +30,7 @@ public class MovieResource {
     ) {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.valueOf(direction), orderBy);
 
-        Page<MovieDTO> list = movieService.findAllPaged(pageRequest);
+        Page<MovieDTO> list = movieService.findAllPaged(genreId, pageRequest);
 
         return ResponseEntity.ok().body(list);
     }
