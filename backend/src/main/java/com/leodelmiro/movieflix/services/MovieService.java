@@ -42,10 +42,14 @@ public class MovieService {
 
     @Transactional
     public MovieDTO insert(MovieDTO dto) {
-        Movie entity = new Movie();
-        dtoToEntity(entity, dto);
-        movieRepository.save(entity);
-        return new MovieDTO(entity);
+        try {
+            Movie entity = new Movie();
+            dtoToEntity(entity, dto);
+            movieRepository.save(entity);
+            return new MovieDTO(entity);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Genre id: " + dto.getGenreId() + " doesn't exist" );
+        }
     }
 
     @Transactional
@@ -54,9 +58,12 @@ public class MovieService {
             Movie entity = movieRepository.getOne(id);
             dtoToEntity(entity, dto);
             movieRepository.save(entity);
+
             return new MovieDTO(entity);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Movie id: " + id + " not found");
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Integrity violation");
         }
     }
 
