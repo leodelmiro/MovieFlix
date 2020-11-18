@@ -2,13 +2,17 @@ package com.leodelmiro.movieflix.dto;
 
 import com.leodelmiro.movieflix.entities.Review;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 public class ReviewDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
+
+    @NotBlank(message = "Review text field can't be empty")
     private String text;
+
     private Long movieId;
     private Long userId;
 
