@@ -8,13 +8,13 @@ import com.leodelmiro.movieflix.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class GenreService {
@@ -23,9 +23,9 @@ public class GenreService {
     private GenreRepository genreRepository;
 
     @Transactional(readOnly = true)
-    public Page<GenreDTO> findAllPaged(PageRequest pageRequest) {
-        Page<Genre> list = genreRepository.findAll(pageRequest);
-        return list.map(GenreDTO::new);
+    public List<GenreDTO> findAll() {
+        List<Genre> list = genreRepository.findAll();
+        return list.stream().map(GenreDTO::new).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
