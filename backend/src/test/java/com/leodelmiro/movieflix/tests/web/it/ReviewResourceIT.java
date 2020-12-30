@@ -108,7 +108,7 @@ public class ReviewResourceIT {
 	}
 
 	@Test
-	public void insertShouldReturnUnproccessableEntityWhenMemberAuthenticatedAndInvalidData() throws Exception {
+	public void insertShouldReturnUnprocessableEntityWhenMemberAuthenticatedAndInvalidData() throws Exception {
 		
 		String accessToken = authenticationUtil.obtainAccessToken(memberUsername, memberPassword);
 		
