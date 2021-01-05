@@ -1,0 +1,20 @@
+.btn-icon {
+    height: 70px;
+    width: 380px;
+    border-radius: 10px 0 0 10px;
+}
+
+.btn-icon-content {
+    background: #937d1c;
+    width: 70px;
+    border-radius: 0 10px 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+}
+
+.btn-title { 
+    text-transform: uppercase;
+    font-size: 24px;
+}
