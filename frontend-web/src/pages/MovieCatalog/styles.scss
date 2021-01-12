@@ -1,0 +1,27 @@
+.movie-catalog-container{
+    height: calc(100vh - 70px);
+}
+
+.movie-catalog-content {
+    padding: 30px 135px 40px 135px;
+}
+
+.filter-container {
+    height: 60px;
+    padding: 5px 20px;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.filter {
+    width: 250px;  
+}
+
+.movie-cards-container {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 270px);
+    grid-gap: 20px 15px;
+    justify-content: space-between;
+}

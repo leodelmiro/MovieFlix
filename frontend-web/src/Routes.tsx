@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Navbar from "./core/components/Navbar";
 import Auth from "./pages/Auth";
-import MoviesCatalog from "./pages/MoviesCatalog";
+import MovieCatalog from "./pages/MovieCatalog";
 
 const Routes = () => {
     return (
@@ -10,7 +10,7 @@ const Routes = () => {
         <Navbar/>
         <Switch>
             <Route path="/movies">
-                <MoviesCatalog/>
+                <MovieCatalog/>
             </Route>
             <Route path="/">
                 <Auth/>
