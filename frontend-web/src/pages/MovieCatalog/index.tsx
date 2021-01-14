@@ -1,6 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
-import { customStyles } from './filterStyles';
+import Pagination from '../../core/components/Pagination';
+import { customStyles } from '../../core/utils/filterStyles';
 import MovieCard from './MovieCard';
 import './styles.scss';
 
@@ -43,6 +44,7 @@ const MovieCatalog = () => {
                     <MovieCard/>
                 </div>
             </div>
+            <Pagination totalPages={10} activePage={0} onChange={() => console.log("olá")}/>
         </div>
     );
 };

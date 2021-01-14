@@ -1,9 +1,10 @@
 .movie-catalog-container{
-    height: calc(100vh - 70px);
+    height: calc(100vh - 300px);
+    padding-bottom: 40px;
 }
 
 .movie-catalog-content {
-    padding: 30px 135px 40px 135px;
+    padding: 30px 135px 0px 135px;
 }
 
 .filter-container {
