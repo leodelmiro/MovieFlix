@@ -1,7 +1,13 @@
 import {ReactComponent as FilmImage} from '../../../core/assets/images/film.svg';
 import './styles.scss';
 
-const MovieCard = () => {
+type Props = {
+    title: String;
+    release: number;
+    description: String;
+}
+
+const MovieCard = ({title, release, description}: Props) => {
 
     return (
         <div className="movie-card-container">
@@ -10,9 +16,9 @@ const MovieCard = () => {
                     <FilmImage/>
                 </div>
                 <div className="movie-card-details">
-                    <h1 className="movie-card-title">O Retorno do Rei</h1>
-                    <h2 className="movie-card-release">2013</h2>
-                    <p className="movie-card-description">O Olho do Inimigo está se movendo</p>
+                    <h1 className="movie-card-title">{title}</h1>
+                    <h2 className="movie-card-release">{release}</h2>
+                    <p className="movie-card-description">{description}</p>
                 </div>
             </div>
         </div>

@@ -1,20 +1,25 @@
 import {ReactComponent as StarIcon} from '../../../core/assets/images/star.svg'
 import './styles.scss';
 
-const Comment = () => {
+type Props = {
+    author: String;
+    comment: String;
+}
+
+const Comment = ({author, comment}: Props) => {
 
     return (
         <div className="comment-container">
             <div className="comment-header">
                 <div className="comment-icon-container">
-                    <StarIcon/>
+                    <StarIcon data-testid="star-icon"/>
                 </div>
                 <div className="comment-author-container">
-                    <h1 className="comment-author-name">Maria Silva</h1>
+                    <h1 className="comment-author-name">{author}</h1>
                 </div>
             </div>
             <div className="comment-content-container">
-                <p className="comment-content">Gostei muito do filme. Foi muito bom mesmo. Pena que durou pouco.</p>
+                <p className="comment-content">{comment}</p>
             </div>
         </div>
     );

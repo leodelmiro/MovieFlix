@@ -45,9 +45,9 @@ const MovieDetails = () => {
                    </div>
                 </div>
                 <div className="movie-comments-container card-base">
-                    <Comment/>
-                    <Comment/>
-                    <Comment/>
+                    <Comment author="Maria da Silva" comment="Gostei muito do filme. Foi muito bom mesmo. Pena que durou pouco."/>
+                    <Comment author="Maria da Silva" comment="Gostei muito do filme. Foi muito bom mesmo. Pena que durou pouco."/>
+                    <Comment author="Maria da Silva" comment="Gostei muito do filme. Foi muito bom mesmo. Pena que durou pouco."/>
                 </div>
             </div>
         </div>
