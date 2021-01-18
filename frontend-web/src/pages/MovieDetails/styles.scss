@@ -1,0 +1,101 @@
+.movie-details-container {
+    display: flex;
+    justify-content: center;
+}
+
+.movie-details-content {
+    padding: 40px 135px 45px 135px;
+}
+
+.movie-info-container {
+    display: flex;
+    height: 375px;
+    width: 1170px;
+    border-radius: 10px;
+    padding: 25px 25px 30px 15px;
+}
+
+.movie-info-texts {
+    margin-left: 60px;
+}
+
+.movie-info-title {
+    font-size: 36px;
+    line-height: 49px;
+    letter-spacing: -0.015em;
+    color: #FFFFFF;
+}
+
+.movie-info-release {
+    font-size: 24px;
+    line-height: 33px;
+    letter-spacing: -0.015em;
+    color: #FFC700;
+}
+
+.movie-info-subtitle {
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 25px;
+    letter-spacing: -0.015em;
+    color: #FFFFFF;
+}
+
+.movie-info-description-container {
+    width: 545px;
+    height: 205px;
+    padding: 15px 55px 20px 20px;
+    border: 1px solid #E1E1E1;
+    box-sizing: border-box;
+    border-radius: 20px;
+}
+
+.movie-info-description {
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: justify;
+    letter-spacing: -0.015em;
+    color: #9E9E9E;
+}
+
+.comments-container {
+    width: 1170px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 15px 20px 15px 15px;
+    border-radius: 10px;
+}
+
+.comment-form {
+    width: 1130px;
+    height: 75px;
+    border-radius: 10px;
+    padding: 10px 15px;
+}
+
+.btn-save-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-save {
+    width: 335px;
+    height: 50px;
+    background: #FFC700;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: -0.015em;
+    color: #000000;
+}
+
+.movie-comments-container {
+    width: 1170px;
+    padding-bottom: 5px; 
+    border-radius: 10px;
+}
