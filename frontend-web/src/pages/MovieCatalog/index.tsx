@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Select from 'react-select';
 import Pagination from '../../core/components/Pagination';
+import { MovieResponse } from '../../core/types/Movie';
 import { customStyles } from '../../core/utils/filterStyles';
 import MovieCard from './MovieCard';
 import './styles.scss';
@@ -13,6 +14,9 @@ const options = [
 ]
 
 const MovieCatalog = () => {
+    const [movieResponse, setMovieResponse] = useState<MovieResponse>();
+    const [isLoading, setIsLoading] = useState(false);
+    const [activePage, setActivePage] = useState(0);
 
     return (
         <div className="movie-catalog-container">
