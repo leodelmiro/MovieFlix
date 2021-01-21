@@ -25,9 +25,8 @@ const Navbar = () => {
                 </Link>
             </div>
             <div className="col-auto justify-content-end">
-                <div className="btn-logout d-flex">
                     {currentUser && (
-                        <>
+                        <div className="btn-logout d-flex">
                             <a
                                 href="#logout"
                                 className="nav-link d-inline"
@@ -35,10 +34,10 @@ const Navbar = () => {
                             >
                                 SAIR
                             </a>
-                        </>
+                        </div>
                     )}
                 </div>
-            </div>
+           
         </nav>
     )
 };
