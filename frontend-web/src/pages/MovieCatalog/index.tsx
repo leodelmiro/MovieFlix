@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Select from 'react-select';
 import Pagination from '../../core/components/Pagination';
 import { MovieResponse } from '../../core/types/Movie';
 import { customStyles } from '../../core/utils/filterStyles';
+import { makePrivateRequest } from '../../core/utils/request';
 import MovieCardLoader from './components/Loaders/MovieCardLoader';
 import MovieCard from './components/MovieCard';
 import './styles.scss';
@@ -18,6 +20,20 @@ const MovieCatalog = () => {
     const [moviesResponse, setMoviesResponse] = useState<MovieResponse>();
     const [isLoading, setIsLoading] = useState(false);
     const [activePage, setActivePage] = useState(0);
+
+    useEffect(() => {
+        const params = {
+            page: activePage,
+            linesPerPage: 12
+        }
+
+        setIsLoading(true);
+        makePrivateRequest({ url: '/movies', params })
+            .then(response => setMoviesResponse(response.data))
+            .finally(() => {
+                setIsLoading(false);
+            });
+    }, [activePage]);
 
     return (
         <div className="movie-catalog-container">
@@ -40,20 +56,22 @@ const MovieCatalog = () => {
                     />
                 </div>
                 <div className="movie-cards-container">
-                    {isLoading ? <MovieCardLoader/> : 
-                    (<MovieCard
-                        title ="O Retorno do Rei"
-                        release = {2013}
-                        description="O Olho do Inimigo está se movendo"
-                    />)
-                }
+                    {isLoading ? <MovieCardLoader /> : (
+                        moviesResponse?.content.map(movie => (
+                            <Link to={`/movies/${movie.id}`} key={movie.id}>
+                                <MovieCard movie={movie} />
+                            </Link>
+                        ))
+                    )}
                 </div>
             </div>
-            <Pagination 
-                totalPages={1} 
-                activePage={activePage} 
-                onChange={(page) => setActivePage(page)} 
-            />
+            {moviesResponse && (
+                <Pagination
+                    totalPages={moviesResponse.totalPages}
+                    activePage={activePage}
+                    onChange={(page) => setActivePage(page)}
+                />
+            )}
         </div>
     );
 };
