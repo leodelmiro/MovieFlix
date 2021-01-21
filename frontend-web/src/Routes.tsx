@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Navbar from "./core/components/Navbar";
 import Auth from "./pages/Auth";
 import MovieCatalog from "./pages/MovieCatalog";
-import MovieDetails from "./pages/MovieDetails";
+import MovieDetails from "./pages/MovieCatalog/components/MovieDetails";
 
 const Routes = () => {
     return (

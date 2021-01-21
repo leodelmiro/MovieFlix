@@ -1,4 +1,4 @@
-import {ReactComponent as StarIcon} from '../../../core/assets/images/star.svg'
+import {ReactComponent as StarIcon} from '../../../../../core/assets/images/star.svg'
 import './styles.scss';
 
 type Props = {

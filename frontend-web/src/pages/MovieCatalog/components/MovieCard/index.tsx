@@ -1,4 +1,4 @@
-import {ReactComponent as FilmImage} from '../../../core/assets/images/film.svg';
+import {ReactComponent as FilmImage} from '../../../../core/assets/images/film.svg';
 import './styles.scss';
 
 type Props = {

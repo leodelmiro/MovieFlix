@@ -1,5 +1,5 @@
 import './styles.scss';
-import {ReactComponent as Image} from '../../core/assets/images/detail.svg'
+import {ReactComponent as Image} from '../../../../core/assets/images/detail.svg'
 import Comment from './Comment'
 import { useForm } from 'react-hook-form';
 
