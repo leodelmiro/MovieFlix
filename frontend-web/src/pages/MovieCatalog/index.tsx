@@ -24,7 +24,7 @@ const MovieCatalog = () => {
     useEffect(() => {
         const params = {
             page: activePage,
-            linesPerPage: 12
+            size: 8
         }
 
         setIsLoading(true);

@@ -1,54 +1,88 @@
 import './styles.scss';
-import {ReactComponent as Image} from '../../../../core/assets/images/detail.svg'
+import { ReactComponent as Image } from '../../../../core/assets/images/detail.svg'
 import Comment from './Comment'
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { makePrivateRequest } from '../../../../core/utils/request';
+import { Movie, Review } from '../../../../core/types/Movie';
+import MovieDetailsLoader from '../Loaders/MovieDetailsLoader';
+import { isAllowedByRole } from '../../../../core/utils/auth';
 
 type FormState = {
-    comment: string,    
+    comment: string,
+}
+
+type ParamsType = {
+    movieId: string;
 }
 
 const MovieDetails = () => {
     const { register, handleSubmit, errors, setValue, control } = useForm<FormState>();
+    const { movieId } = useParams<ParamsType>();
+    const [movie, setMovie] = useState<Movie>();
+    const [isLoading, setIsLoading] = useState(false);
+
+    const movieReviewSize = movie ? movie.reviews.length : 0;
+    const [review, hasReview] = useState(false);
+
+    useEffect(() => {
+        setIsLoading(true);
+        makePrivateRequest({ url: `/movies/${movieId}` })
+            .then(response => setMovie(response.data))
+            .finally(() => setIsLoading(false));
+    }, [movieId]);
+
+    useEffect(() => {
+        if (movieReviewSize > 0) {
+            hasReview(true);
+        }
+    }, [movieReviewSize])
 
     return (
         <div className="movie-details-container">
             <div className="movie-details-content">
-                <div className="movie-info-container card-base">
-                    <Image/>
-                    <div className="movie-info-texts">
-                        <h1 className="movie-info-title">O Retorno do Rei</h1>
-                        <h2 className="movie-info-release">2013</h2>
-                        <h3 className="movie-info-subtitle">O Olho do inimigo está se movendo</h3>
-                        <div className="movie-info-description-container">
-                            <p className="movie-info-description">
-                                O confronto final entre as forças do bem e do mal que lutam pelo controle do futuro da Terra Média se aproxima. 
-                                Sauron planeja um grande ataque a Minas Tirith, capital de Gondor, 
-                                o que faz com que Gandalf e Pippin partam para o local na intenção de ajudar a resistência. 
-                                Um exército é reunido por Theoden em Rohan, em mais uma tentativa de deter as forças de Sauron. 
-                                Enquanto isso, Frodo, Sam e Gollum seguem sua viagem rumo à Montanha da Perdição para destruir o anel.
-                            </p>
+                {isLoading ? <MovieDetailsLoader /> : (
+                    <div className="movie-info-container card-base">
+                        <img src={movie?.imgUrl} alt={movie?.title} />
+                        <div className="movie-info-texts">
+                            <h1 className="movie-info-title">{movie?.title}</h1>
+                            <h2 className="movie-info-release">{movie?.release}</h2>
+                            <h3 className="movie-info-subtitle">{movie?.subTitle}</h3>
+                            <div className="movie-info-description-container">
+                                <p className="movie-info-description">
+                                    {movie?.synopsis}
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="comments-container card-base">
-                    <textarea 
-                        name="comment" 
-                        id=""
-                        className="comment-form"
-                        placeholder="Deixe sua avaliação aqui"  
-                        cols={30} 
-                        rows={10}
-                        ref={register({required: "Campo obrigatório"})}
-                    />
-                   <div className="btn-save-container">
-                       <button type="button" className="btn btn-save">Salvar Avaliação</button>
-                   </div>
-                </div>
-                <div className="movie-comments-container card-base">
-                    <Comment author="Maria da Silva" comment="Gostei muito do filme. Foi muito bom mesmo. Pena que durou pouco."/>
-                    <Comment author="Maria da Silva" comment="Gostei muito do filme. Foi muito bom mesmo. Pena que durou pouco."/>
-                    <Comment author="Maria da Silva" comment="Gostei muito do filme. Foi muito bom mesmo. Pena que durou pouco."/>
-                </div>
+                )}
+
+                {isAllowedByRole(['ROLE_MEMBER']) && (
+                    <div className="comments-container card-base">
+                        <textarea
+                            name="comment"
+                            id=""
+                            className="comment-form"
+                            placeholder="Deixe sua avaliação aqui"
+                            cols={30}
+                            rows={10}
+                            ref={register({ required: "Campo obrigatório" })}
+                        />
+                        <div className="btn-save-container">
+                            <button type="button" className="btn btn-save">Salvar Avaliação</button>
+                        </div>
+                    </div>
+                )}
+                {review ?
+                    <div className="movie-comments-container card-base">
+                        {isLoading ? <MovieDetailsLoader /> : (
+                            movie?.reviews.map(review => (
+                                <Comment author="Maria da Silva" comment={review.text} key={review.id} />
+                            ))
+                        )}
+                    </div> : null
+                }
             </div>
         </div>
     );
