@@ -1,11 +1,10 @@
 import './styles.scss';
-import { ReactComponent as Image } from '../../../../core/assets/images/detail.svg'
 import Comment from './Comment'
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { makePrivateRequest } from '../../../../core/utils/request';
-import { Movie, Review } from '../../../../core/types/Movie';
+import { Movie } from '../../../../core/types/Movie';
 import MovieDetailsLoader from '../Loaders/MovieDetailsLoader';
 import { isAllowedByRole } from '../../../../core/utils/auth';
 
@@ -78,7 +77,7 @@ const MovieDetails = () => {
                     <div className="movie-comments-container card-base">
                         {isLoading ? <MovieDetailsLoader /> : (
                             movie?.reviews.map(review => (
-                                <Comment author="Maria da Silva" comment={review.text} key={review.id} />
+                                <Comment author={review.user.name} comment={review.text} key={review.id} />
                             ))
                         )}
                     </div> : null
