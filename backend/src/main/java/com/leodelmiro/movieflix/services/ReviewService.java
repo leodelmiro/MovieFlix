@@ -1,6 +1,7 @@
 package com.leodelmiro.movieflix.services;
 
 import com.leodelmiro.movieflix.dto.ReviewDTO;
+import com.leodelmiro.movieflix.dto.ReviewInsertDTO;
 import com.leodelmiro.movieflix.entities.Review;
 import com.leodelmiro.movieflix.entities.User;
 import com.leodelmiro.movieflix.repositories.MovieRepository;
@@ -26,7 +27,7 @@ public class ReviewService {
     private UserRepository userRepository;
 
     @Transactional
-    public ReviewDTO insert(ReviewDTO dto) {
+    public ReviewDTO insert(ReviewInsertDTO dto) {
         Review entity = new Review();
         try {
             entity.setMovie(movieRepository.getOne(dto.getMovieId()));

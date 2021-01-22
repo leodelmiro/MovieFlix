@@ -59,7 +59,7 @@ public class ReviewResourceIT {
 	public void insertShouldReturnUnauthorizedWhenNotValidToken() throws Exception {
 
 		String jsonBody = objectMapper.writeValueAsString(newReviewDTO);
-		
+
 		ResultActions result =
 				mockMvc.perform(post("/reviews")
 						.content(jsonBody)
@@ -68,14 +68,14 @@ public class ReviewResourceIT {
 
 		result.andExpect(status().isUnauthorized());
 	}
-	
+
 	@Test
 	public void insertShouldReturnForbiddenWhenVisitorAuthenticated() throws Exception {
-	
+
 		String accessToken = authenticationUtil.obtainAccessToken(visitorUsername, visitorPassword);
-		
+
 		String jsonBody = objectMapper.writeValueAsString(newReviewDTO);
-		
+
 		ResultActions result =
 				mockMvc.perform(post("/reviews")
 						.header("Authorization", "Bearer " + accessToken)
@@ -85,25 +85,28 @@ public class ReviewResourceIT {
 
 		result.andExpect(status().isForbidden());
 	}
-	
+
 	@Test
 	public void insertShouldInsertReviewWhenMemberAuthenticatedAndValidData() throws Exception {
-		
+
 		String accessToken = authenticationUtil.obtainAccessToken(memberUsername, memberPassword);
-		
+
 		String jsonBody = objectMapper.writeValueAsString(newReviewDTO);
-		
+
 		long expectedCount = reviewRepository.count() + 1;
-		
+
 		ResultActions result =
 				mockMvc.perform(post("/reviews")
 						.header("Authorization", "Bearer " + accessToken)
 						.content(jsonBody)
 						.contentType(MediaType.APPLICATION_JSON)
 						.accept(MediaType.APPLICATION_JSON));
-		
+
 		result.andExpect(status().isCreated());
-		result.andExpect(jsonPath("$.movieId").exists());
+		result.andExpect(jsonPath("$.user").exists());
+		result.andExpect(jsonPath("$.user.id").exists());
+		result.andExpect(jsonPath("$.user.name").exists());
+		result.andExpect(jsonPath("$.user.email").value(memberUsername));
 		Assertions.assertEquals(expectedCount, reviewRepository.count());
 	}
 

@@ -1,38 +1,34 @@
 package com.leodelmiro.movieflix.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.leodelmiro.movieflix.entities.Review;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
-public class ReviewDTO implements Serializable {
+public class ReviewInsertDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
 
+    @NotBlank(message = "Review text field can't be empty")
     private String text;
 
     private Long movieId;
 
-    @JsonProperty("user")
-    private UserDTO userDTO;
-
-    public ReviewDTO() {
+    public ReviewInsertDTO() {
 
     }
 
-    public ReviewDTO(Long id, String text, Long movieId, UserDTO userDTO) {
+    public ReviewInsertDTO(Long id, String text, Long movieId) {
         this.id = id;
         this.text = text;
         this.movieId = movieId;
-        this.userDTO = userDTO;
     }
 
-    public ReviewDTO(Review entity) {
+    public ReviewInsertDTO(Review entity) {
         id = entity.getId();
         text = entity.getText();
         movieId = entity.getMovie().getId();
-        userDTO = new UserDTO(entity.getUser());
     }
 
     public Long getId() {
@@ -57,13 +53,5 @@ public class ReviewDTO implements Serializable {
 
     public void setMovieId(Long movieId) {
         this.movieId = movieId;
-    }
-
-    public UserDTO getUserDTO() {
-        return userDTO;
-    }
-
-    public void setUserDTO(UserDTO userDTO) {
-        this.userDTO = userDTO;
     }
 }
