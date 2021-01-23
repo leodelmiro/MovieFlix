@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Login from './Login';
 import {ReactComponent as Draw} from '../../core/assets/images/auth-draw.svg';
 import './styles.scss';

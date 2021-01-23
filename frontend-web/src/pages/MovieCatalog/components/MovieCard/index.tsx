@@ -1,4 +1,3 @@
-import { ReactComponent as FilmImage } from '../../../../core/assets/images/film.svg';
 import { Movie } from '../../../../core/types/Movie';
 import './styles.scss';
 
