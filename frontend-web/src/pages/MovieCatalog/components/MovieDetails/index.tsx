@@ -1,15 +1,17 @@
-import './styles.scss';
 import Comment from './Comment'
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { makePrivateRequest } from '../../../../core/utils/request';
 import { Movie } from '../../../../core/types/Movie';
 import MovieDetailsLoader from '../Loaders/MovieDetailsLoader';
 import { isAllowedByRole } from '../../../../core/utils/auth';
+import { toast } from 'react-toastify';
+import './styles.scss';
 
 type FormState = {
-    comment: string,
+    text: string,
+    movieId: number
 }
 
 type ParamsType = {
@@ -17,7 +19,8 @@ type ParamsType = {
 }
 
 const MovieDetails = () => {
-    const { register, handleSubmit, errors, setValue, control } = useForm<FormState>();
+    const history = useHistory();
+    const { register, handleSubmit, errors } = useForm<FormState>();
     const { movieId } = useParams<ParamsType>();
     const [movie, setMovie] = useState<Movie>();
     const [isLoading, setIsLoading] = useState(false);
@@ -37,6 +40,24 @@ const MovieDetails = () => {
             hasReview(true);
         }
     }, [movieReviewSize])
+
+    const onSubmit = (data: FormState) => {
+        data.movieId = parseInt(movieId);
+
+        makePrivateRequest({
+            method: 'POST',
+            url: '/reviews',
+            data
+        })
+            .then(() => {
+                toast.warning('Agradecemos pelo seu comentário!');
+                history.push('/movies');
+
+            })
+            .catch(() => {
+                toast.error('Ocorreu um erro ao realizar o comentário');
+            });
+    }
 
     return (
         <div className="movie-details-container">
@@ -59,18 +80,24 @@ const MovieDetails = () => {
 
                 {isAllowedByRole(['ROLE_MEMBER']) && (
                     <div className="comments-container card-base">
-                        <textarea
-                            name="comment"
-                            id=""
-                            className="comment-form"
-                            placeholder="Deixe sua avaliação aqui"
-                            cols={30}
-                            rows={10}
-                            ref={register({ required: "Campo obrigatório" })}
-                        />
-                        <div className="btn-save-container">
-                            <button type="button" className="btn btn-save">Salvar Avaliação</button>
-                        </div>
+                         {errors.text && (
+                                <div className="alert alert-danger">
+                                    Campo não pode ser vazio!
+                                </div>
+                        )}
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <textarea
+                                name="text"
+                                className="comment-form"
+                                placeholder="Deixe sua avaliação aqui"
+                                cols={30}
+                                rows={10}
+                                ref={register({ required: "Campo não pode ser vazio!" })}
+                            />
+                            <div className="btn-save-container">
+                                <button className="btn btn-save">Salvar Avaliação</button>
+                            </div>
+                        </form>                     
                     </div>
                 )}
                 {review ?

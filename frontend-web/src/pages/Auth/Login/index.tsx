@@ -76,19 +76,22 @@ const Login = () => {
                     )}
                 </div>
                 <div className="password-container">
-                    <input
-                        name="password"
-                        type={isPasswordVisible ? 'text': 'password'}
-                        className={`form-control input-base ${errors.password ? 'is-invalid' : ''}`}
-                        placeholder="Senha"
-                        ref={register({ required: "Campo obrigatório" })}
-                    />
+                    <div className="password-field">
+                        <input
+                            name="password"
+                            type={isPasswordVisible ? 'text' : 'password'}
+                            className={`form-control input-base ${errors.password ? 'is-invalid' : ''}`}
+                            placeholder="Senha"
+                            ref={register({ required: "Campo obrigatório" })}
+                        />
+                        <ShowPassword className="password-image" onClick={showPassword} data-testid="show-password" />
+                    </div>
+
                     {errors.password && (
                         <div className="invalid-feedback d-block">
                             {errors.password.message}
                         </div>
                     )}
-                    <ShowPassword className="password-image" onClick={showPassword} data-testid="show-password" />
                 </div>
                 <ButtonIcon title="Logar" />
             </form>
