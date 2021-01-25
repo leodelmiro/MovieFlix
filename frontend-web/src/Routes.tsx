@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Navbar from "./core/components/Navbar";
+import PrivateRoute from "./core/components/Routes/PrivateRoute";
 import Auth from "./pages/Auth";
 import MovieCatalog from "./pages/MovieCatalog";
 import MovieDetails from "./pages/MovieCatalog/components/MovieDetails";
@@ -10,12 +11,12 @@ const Routes = () => {
         <BrowserRouter>
         <Navbar/>
         <Switch>
-            <Route path="/movies/:movieId">
+            <PrivateRoute path="/movies/:movieId">
                 <MovieDetails/>
-            </Route>
-            <Route path="/movies">
+            </PrivateRoute>
+            <PrivateRoute path="/movies">
                 <MovieCatalog/>
-            </Route>
+            </PrivateRoute>
             <Route path="/">
                 <Auth/>
             </Route>

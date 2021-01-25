@@ -7,6 +7,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { makeLogin } from '../../../core/utils/request';
 import { saveSessionData } from '../../../core/utils/auth';
 import './styles.scss';
+import SpinnerLoader from '../Loaders/SpinnerLoader';
 
 type FormState = {
     username: string;
@@ -48,55 +49,64 @@ const Login = () => {
     }
 
     return (
-        <AuthCard title="Login">
-            {hasError && (
+
+        <AuthCard title="Login" className="">
+            { hasError && (
                 <div className="alert alert-danger mt-5">
                     Usuário ou senha inválidos!
                 </div>
             )}
-            <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
-                <div className="margin-bottom-30">
-                    <input
-                        name="username"
-                        type="email"
-                        className={`form-control input-base ${errors.username ? 'is-invalid' : ''}`}
-                        placeholder="Email"
-                        ref={register({
-                            required: "Campo obrigatório",
-                            pattern: {
-                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                message: "Email inválido"
-                            }
-                        })}
-                    />
-                    {errors.username && (
-                        <div className="invalid-feedback d-block">
-                            {errors.username.message}
-                        </div>
-                    )}
-                </div>
-                <div className="password-container">
-                    <div className="password-field">
-                        <input
-                            name="password"
-                            type={isPasswordVisible ? 'text' : 'password'}
-                            className={`form-control input-base ${errors.password ? 'is-invalid' : ''}`}
-                            placeholder="Senha"
-                            ref={register({ required: "Campo obrigatório" })}
-                        />
-                        <ShowPassword className="password-image" onClick={showPassword} data-testid="show-password" />
-                    </div>
 
-                    {errors.password && (
-                        <div className="invalid-feedback d-block">
-                            {errors.password.message}
+            <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
+                {isLoading ? <SpinnerLoader /> : (
+                    <>
+                        <div className="margin-bottom-30">
+                            <input
+                                name="username"
+                                type="email"
+                                className={`form-control input-base ${errors.username ? 'is-invalid' : ''}`}
+                                placeholder="Email"
+                                ref={register({
+                                    required: "Campo obrigatório",
+                                    pattern: {
+                                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                        message: "Email inválido"
+                                    }
+                                })}
+                            />
+                            {errors.username && (
+                                <div className="invalid-feedback d-block">
+                                    {errors.username.message}
+                                </div>
+                            )}
                         </div>
-                    )}
-                </div>
-                <ButtonIcon title="Logar" />
+                        <div className="password-container">
+                            <div className="password-field">
+                                <input
+                                    name="password"
+                                    type={isPasswordVisible ? 'text' : 'password'}
+                                    className={`form-control input-base ${errors.password ? 'is-invalid' : ''}`}
+                                    placeholder="Senha"
+                                    ref={register({ required: "Campo obrigatório" })}
+                                />
+                                <ShowPassword className="password-image" onClick={showPassword} data-testid="show-password" />
+                            </div>
+                            {errors.password && (
+                                <div className="invalid-feedback d-block">
+                                    {errors.password.message}
+                                </div>
+                            )}
+                        </div>
+                        <ButtonIcon title="Logar" />
+                    </>
+                )}
             </form>
+
+
         </AuthCard>
+
     );
 };
 
 export default Login;
+
