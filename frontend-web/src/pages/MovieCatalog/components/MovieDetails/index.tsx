@@ -100,6 +100,7 @@ const MovieDetails = () => {
                         </form>                     
                     </div>
                 )}
+                
                 {review ?
                     <div className="movie-comments-container card-base">
                         {isLoading ? <MovieDetailsLoader /> : (
