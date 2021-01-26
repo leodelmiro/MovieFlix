@@ -1,4 +1,7 @@
-# MovieFlix
+# [MovieFlix](https://leodelmiro-movieflix.netlify.app/)
+
+[![front-end](https://img.shields.io/badge/front--end-react-blue)](https://github.com/leodelmiro/MovieFlix/tree/main/frontend-web)
+[![back-end](https://img.shields.io/badge/back--end-spring-green)](https://github.com/leodelmiro/MovieFlix/tree/main/backend)
 
 ### Visão geral do sistema
 
@@ -31,3 +34,94 @@ Um usuário possui nome, email e senha, sendo que o email é seu nome de usuári
 
 #### Exceção 3.1 - Texto vazio
 3.1.1. O sistema apresenta uma mensagem de que não é permitido texto vazio na avaliação 
+
+# Implementações
+
+## Endpoints Back end
+
+### Genre
+![Endpoints Genre](https://i.imgur.com/eG1fiFK.png)
+
+### Movie
+![Endpoints Movie](https://i.imgur.com/Gg9Wh1j.png)
+
+### Review
+![Endpoints Review](https://i.imgur.com/uJqosbp.png)
+
+## Layout web
+
+![Login](https://i.imgur.com/o3pPNJ1.png)
+
+![Catalog](https://i.imgur.com/A11OBIy.png)
+
+![Movie Details Member](https://i.imgur.com/iBUGEJu.png)
+
+![Movie Details Visitor](https://i.imgur.com/f3Ydc4s.png)
+
+# Tecnologias utilizadas
+
+- Padrão de camadas
+- Web service REST
+
+
+## Back end
+- Java
+- Spring Boot
+- JPA / Hibernate
+- Maven
+- Swagger
+- OAuth / JWT
+- JUnit / Mockito
+
+## Front end
+- HTML / CSS / JS / TypeScript
+- ReactJS
+- React Navigation
+- Axios
+- React Content Loader
+- React Loader Spinner
+- React Hook Form
+- React Testing Library / Jest
+
+## Implantação em produção
+- Back end: Heroku
+- Front end web: Netlify
+- Banco de dados: Postgresql
+
+# Como executar o projeto
+
+## Back end
+Pré-requisitos: Java 11
+
+```bash
+# clonar repositório
+git clone https://github.com/leodelmiro/MovieFlix
+
+# entrar na pasta do projeto back end
+cd backend
+
+# executar o projeto
+./mvnw spring-boot:run
+```
+
+## Front end web
+Pré-requisitos: npm / yarn
+
+```bash
+# clonar repositório
+git clone https://github.com/leodelmiro/MovieFlix
+
+# entrar na pasta do projeto front end web
+cd frontend-web
+
+# instalar dependências
+yarn install
+
+# executar o projeto
+yarn start
+```
+# Autor
+
+Leonardo Delmiro
+
+https://www.linkedin.com/in/leodelmiro
