@@ -5,6 +5,7 @@ import PrivateRoute from "./core/components/Routes/PrivateRoute";
 import Auth from "./pages/Auth";
 import MovieCatalog from "./pages/MovieCatalog";
 import MovieDetails from "./pages/MovieCatalog/components/MovieDetails";
+import history from "./core/utils/history"
 
 const Routes = () => {
     return (
@@ -17,7 +18,7 @@ const Routes = () => {
             <PrivateRoute path="/movies">
                 <MovieCatalog/>
             </PrivateRoute>
-            <Route path="/">
+            <Route path="/" history={history}>
                 <Auth/>
             </Route>
         </Switch>

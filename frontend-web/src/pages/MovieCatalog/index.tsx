@@ -26,7 +26,7 @@ const MovieCatalog = () => {
     const getMovies = useCallback((filter?: FilterForm) => {
         const params = {
             page: activePage,
-            size: 8,
+            size: 10,
             genreId:  filter?.genreId
         }
 

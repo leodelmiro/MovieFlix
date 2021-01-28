@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import history from '../../utils/history'
 import { Link, useLocation } from 'react-router-dom';
 import { getAccessTokenDecoded, logout } from '../../utils/auth';
+
 import './styles.scss'
 
 const Navbar = () => {
@@ -15,6 +17,7 @@ const Navbar = () => {
     const handleLogout = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         event.preventDefault();
         logout();
+        history.go(0);
     }
 
     return (
@@ -28,7 +31,7 @@ const Navbar = () => {
                     {currentUser && (
                         <div className="btn-logout d-flex">
                             <a
-                                href="#logout"
+                                href="/"
                                 className="nav-link d-inline"
                                 onClick={handleLogout}
                             >

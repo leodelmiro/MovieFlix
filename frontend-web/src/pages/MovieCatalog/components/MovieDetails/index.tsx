@@ -1,7 +1,7 @@
 import Comment from './Comment'
 import { useForm } from 'react-hook-form';
-import { useHistory, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
 import { makePrivateRequest } from '../../../../core/utils/request';
 import { Movie } from '../../../../core/types/Movie';
 import MovieDetailsLoader from '../Loaders/MovieDetailsLoader';
@@ -19,7 +19,6 @@ type ParamsType = {
 }
 
 const MovieDetails = () => {
-    const history = useHistory();
     const { register, handleSubmit, errors } = useForm<FormState>();
     const { movieId } = useParams<ParamsType>();
     const [movie, setMovie] = useState<Movie>();
@@ -28,12 +27,17 @@ const MovieDetails = () => {
     const movieReviewSize = movie ? movie.reviews.length : 0;
     const [review, hasReview] = useState(false);
 
-    useEffect(() => {
+    
+    const getMovieDetails = useCallback(() => {
         setIsLoading(true);
         makePrivateRequest({ url: `/movies/${movieId}` })
             .then(response => setMovie(response.data))
             .finally(() => setIsLoading(false));
     }, [movieId]);
+
+    useEffect(() => {
+        getMovieDetails();
+    }, [getMovieDetails])
 
     useEffect(() => {
         if (movieReviewSize > 0) {
@@ -51,8 +55,7 @@ const MovieDetails = () => {
         })
             .then(() => {
                 toast.warning('Agradecemos pelo seu comentário!');
-                history.push('/movies');
-
+                getMovieDetails()
             })
             .catch(() => {
                 toast.error('Ocorreu um erro ao realizar o comentário');
@@ -67,7 +70,7 @@ const MovieDetails = () => {
                         <img src={movie?.imgUrl} alt={movie?.title} />
                         <div className="movie-info-texts">
                             <h1 className="movie-info-title">{movie?.title}</h1>
-                            <h2 className="movie-info-release">{movie?.release}</h2>
+                            <h2 className="movie-info-release">{movie?.year}</h2>
                             <h3 className="movie-info-subtitle">{movie?.subTitle}</h3>
                             <div className="movie-info-description-container">
                                 <p className="movie-info-description">
